@@ -10,7 +10,10 @@ public class Weapon : MonoBehaviour
     public float bulletForce;
 
     private float timeBtwFire;
+    public AudioClip shootingSound; // File âm thanh b?n
+    public AudioSource audioSource;
 
+    
     void Update()
     {
         RotateGun();
@@ -45,6 +48,11 @@ public class Weapon : MonoBehaviour
 
         Rigidbody2D rb = bulletTmp.GetComponent<Rigidbody2D>();
         rb.AddForce(transform.right * bulletForce, ForceMode2D.Impulse);
+        // Phát âm thanh b?n
+        if (shootingSound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(shootingSound);
+        }
 
     }
 }
