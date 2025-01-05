@@ -5,12 +5,10 @@ public class Bullet : MonoBehaviour
     
     public bool PlayerBullet;
 
-    public GameObject SB;
-    public StaticBase sb;
+    private StaticBase sb;
     void Start()
     {
-        SB = GameObject.Find("StaticBase");
-        sb = SB.GetComponent<StaticBase>();
+        sb = GameManager.Instance.SB;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

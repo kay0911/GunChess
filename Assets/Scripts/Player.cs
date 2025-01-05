@@ -8,8 +8,7 @@ public class Player : MonoBehaviour
     private Rigidbody2D rb;
     public SpriteRenderer characterSR;
     public Animator animator;
-    public GameObject SB;
-    public StaticBase sb;
+    private StaticBase sb;
 
     public float dashBoost = 3f;
     private float dashTime;
@@ -20,8 +19,7 @@ public class Player : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        SB = GameObject.Find("StaticBase");
-        sb = SB.GetComponent<StaticBase>();
+        sb = GameManager.Instance.SB;
     }
 
     // Update is called once per frame

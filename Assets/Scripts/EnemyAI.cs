@@ -12,7 +12,7 @@ public class EnemyAI : MonoBehaviour
 
     bool reachDestination = false;
     public float moveSpeed;
-    public float nextWPDistance;
+    public float nextWPDistance = 0.3f;
     public bool updateContinuesPath;
     public Seeker seeker;
     Path path;
@@ -22,7 +22,6 @@ public class EnemyAI : MonoBehaviour
 
     Coroutine moveCoroutine;
     private GameObject player;
-    public GameObject SB;
     public StaticBase sb;
 
 
@@ -37,12 +36,16 @@ public class EnemyAI : MonoBehaviour
     private float fireCooldown;
     public int damage;
 
+    // sound
+    public AudioClip collisionSound; // File âm thanh va chạm
+    public AudioSource audioSource;
+
     private void Start()
     {
         seeker = GetComponent<Seeker>();
         rb = GetComponent<Rigidbody2D>();
-        SB = GameObject.Find("StaticBase");
-        sb = SB.GetComponent<StaticBase>();
+        sb = GameManager.Instance.SB;
+
         if (pawn)
         {
             moveSpeed = sb.PawnMoveSpeed;
@@ -160,6 +163,11 @@ public class EnemyAI : MonoBehaviour
         {
             PlayerHealth = collision.GetComponent<Health>();
             InvokeRepeating("DamagePlayer", 0, 1f);
+            // Phát âm thanh va chạm
+            if (collisionSound != null && audioSource != null)
+            {
+                audioSource.PlayOneShot(collisionSound);
+            }
         }
         
     }
